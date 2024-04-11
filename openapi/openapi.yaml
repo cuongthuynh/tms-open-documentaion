@@ -9,6 +9,7 @@ paths:
     get:
       tags:
       - Vehicle
+      summary: Updates a pet in the store with form data
       parameters:
       - name: VehicleTypeId
         in: query
@@ -86,6 +87,7 @@ paths:
     get:
       tags:
       - Vehicle
+      summary: Updates a pet in the store with form data
       parameters:
       - name: code
         in: path
@@ -139,6 +141,7 @@ paths:
     patch:
       tags:
       - Vehicle
+      summary: Updates a pet in the store with form data
       parameters:
       - name: code
         in: path
@@ -175,6 +178,7 @@ paths:
     delete:
       tags:
       - Vehicle
+      summary: Updates a pet in the store with form data
       parameters:
       - name: code
         in: path
@@ -200,6 +204,7 @@ paths:
     get:
       tags:
       - VehicleType
+      summary: Updates a pet in the store with form data
       parameters:
       - name: Keyword
         in: query
@@ -290,6 +295,7 @@ paths:
     get:
       tags:
       - VehicleType
+      summary: Updates a pet in the store with form data
       parameters:
       - name: vehicleTypeCode
         in: path
@@ -315,6 +321,7 @@ paths:
     delete:
       tags:
       - VehicleType
+      summary: Updates a pet in the store with form data
       parameters:
       - name: vehicalTypeCode
         in: path
@@ -340,6 +347,7 @@ paths:
     patch:
       tags:
       - VehicleType
+      summary: Updates a pet in the store with form data
       parameters:
       - name: vehicleTypeCode
         in: path
