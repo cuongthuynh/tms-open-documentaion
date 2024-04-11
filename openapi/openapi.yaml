@@ -113,6 +113,7 @@ paths:
     post:
       tags:
       - Vehicle
+      summary: Updates a pet in the store with form data
       requestBody:
         content:
           application/json:
