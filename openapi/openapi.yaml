@@ -5,13 +5,20 @@ info:
 servers:
 - url: /
 paths:
-  /api/Admin/station/GetAll:
+  /api/Vehicle/GetAll:
     get:
       tags:
-      - Admin
-       summary: Updates a pet in the store with form data
-       parameters:
-      - name: ExcludeStationCode
+      - Vehicle
+      parameters:
+      - name: VehicleTypeId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: VehicleTypeCode
         in: query
         required: false
         style: form
@@ -68,21 +75,19 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/StationResponsePaginatedResultResponse'
+                $ref: '#/components/schemas/VehicleResponsePaginatedResultResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/StationResponsePaginatedResultResponse'
+                $ref: '#/components/schemas/VehicleResponsePaginatedResultResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/StationResponsePaginatedResultResponse'
-        
-  /api/Admin/station/GetOne/{stationCode}:
+                $ref: '#/components/schemas/VehicleResponsePaginatedResultResponse'
+  /api/Vehicle/GetOne/{code}:
     get:
       tags:
-      - Admin
-       summary: Updates a pet in the store with form data
+      - Vehicle
       parameters:
-      - name: stationCode
+      - name: code
         in: path
         required: true
         style: simple
@@ -95,48 +100,47 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/StationDetailResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/StationDetailResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/StationDetailResponseBaseResponse'
-  /api/Admin/station/Create:
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
+  /api/Vehicle/Create:
     post:
       tags:
-      - Admin
+      - Vehicle
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StationCreationRequest'
+              $ref: '#/components/schemas/VehicleCreationRequest'
           text/json:
             schema:
-              $ref: '#/components/schemas/StationCreationRequest'
+              $ref: '#/components/schemas/VehicleCreationRequest'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/StationCreationRequest'
+              $ref: '#/components/schemas/VehicleCreationRequest'
       responses:
         "200":
           description: Success
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/StationResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/StationResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/StationResponseBaseResponse'
-  /api/Admin/station/Update/{stationCode}:
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
+  /api/Vehicle/Update/{code}:
     patch:
       tags:
-      - Admin
-       summary: Updates a pet in the store with form data
+      - Vehicle
       parameters:
-      - name: stationCode
+      - name: code
         in: path
         required: true
         style: simple
@@ -147,226 +151,56 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StationUpdatingRequest'
+              $ref: '#/components/schemas/VehicleUpdatingRequest'
           text/json:
             schema:
-              $ref: '#/components/schemas/StationUpdatingRequest'
+              $ref: '#/components/schemas/VehicleUpdatingRequest'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/StationUpdatingRequest'
+              $ref: '#/components/schemas/VehicleUpdatingRequest'
       responses:
         "200":
           description: Success
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/StationResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/StationResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/StationResponseBaseResponse'
-  /api/Admin/employee/SyncEmployeeToCOD:
-    post:
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
+  /api/Vehicle/Delete/{code}:
+    delete:
       tags:
-      - Admin
-      responses:
-        "200":
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectBaseResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectBaseResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectBaseResponse'
-  /api/Cod/GetAllTasks:
-    get:
-      tags:
-      - Cod
-       summary: Updates a pet in the store with form data
+      - Vehicle
       parameters:
-      - name: DriverCode
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: CompletedAt
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: StationCodes
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: ServiceType
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: Keyword
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: CreatedAt
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: Status
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: SortBy
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: PageSize
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: Page
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CodTaskDetailResponsePaginatedResultResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CodTaskDetailResponsePaginatedResultResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CodTaskDetailResponsePaginatedResultResponse'
-  /api/Cod/GetOneTask/{taskId}:
-    get:
-      tags:
-      - Cod
-       summary: Updates a pet in the store with form data
-      parameters:
-      - name: taskId
+      - name: code
         in: path
         required: true
         style: simple
         explode: false
         schema:
           type: string
-          format: uuid
       responses:
         "200":
           description: Success
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/CodTaskDetailResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/CodTaskDetailResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/CodTaskDetailResponseBaseResponse'
-  /api/Cod/GetAllValidators:
+                $ref: '#/components/schemas/VehicleResponseBaseResponse'
+  /api/VehicleType/GetAll:
     get:
       tags:
-      - Cod
-      responses:
-        "200":
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CodValidatorResponsePaginatedResultResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CodValidatorResponsePaginatedResultResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CodValidatorResponsePaginatedResultResponse'
-  /api/Cod/GetAllTransactions:
-    get:
-      tags:
-      - Cod
-       summary: Updates a pet in the store with form data
+      - VehicleType
       parameters:
-      - name: Method
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: DriverCode
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: ConfirmedBy
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: ConfirmedAt
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: ServiceType
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: StationCodes
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
       - name: Keyword
         in: query
         required: false
@@ -417,20 +251,97 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponsePaginatedResultResponse'
+                $ref: '#/components/schemas/VehicleTypeResponsePaginatedResultResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponsePaginatedResultResponse'
+                $ref: '#/components/schemas/VehicleTypeResponsePaginatedResultResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponsePaginatedResultResponse'
-  /api/Cod/GetOneTransaction/{transactionId}:
+                $ref: '#/components/schemas/VehicleTypeResponsePaginatedResultResponse'
+  /api/VehicleType/Create:
+    post:
+      tags:
+      - VehicleType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleTypeCreationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VehicleTypeCreationRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VehicleTypeCreationRequest'
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/VehicleTypeResponseBaseResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleTypeResponseBaseResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/VehicleTypeResponseBaseResponse'
+  /api/VehicleType/GetOne/{vehicleTypeCode}:
     get:
       tags:
-      - Cod
-       summary: Updates a pet in the store with form data
+      - VehicleType
       parameters:
-      - name: transactionId
+      - name: vehicleTypeCode
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/VehicleTypeDetailResponseBaseResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleTypeDetailResponseBaseResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/VehicleTypeDetailResponseBaseResponse'
+  /api/VehicleType/Delete/{vehicalTypeCode}:
+    delete:
+      tags:
+      - VehicleType
+      parameters:
+      - name: vehicalTypeCode
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectBaseResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectBaseResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectBaseResponse'
+  /api/VehicleType/Update/{vehicleTypeCode}:
+    patch:
+      tags:
+      - VehicleType
+      parameters:
+      - name: vehicleTypeCode
         in: path
         required: true
         style: simple
@@ -438,170 +349,533 @@ paths:
         schema:
           type: string
           format: uuid
-      responses:
-        "200":
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-  /api/Cod/CreateTransaction:
-    post:
-      tags:
-      - Cod
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CodTransactionCreationRequest'
+              $ref: '#/components/schemas/VehicleTypeUpdatingRequest'
           text/json:
             schema:
-              $ref: '#/components/schemas/CodTransactionCreationRequest'
+              $ref: '#/components/schemas/VehicleTypeUpdatingRequest'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/CodTransactionCreationRequest'
+              $ref: '#/components/schemas/VehicleTypeUpdatingRequest'
       responses:
         "200":
           description: Success
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleTypeResponseBaseResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
+                $ref: '#/components/schemas/VehicleTypeResponseBaseResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-  /api/Cod/ConfirmTransaction:
+                $ref: '#/components/schemas/VehicleTypeResponseBaseResponse'
+  /api/Webhook/Optimize:
     post:
       tags:
-      - Cod
+      - Webhook
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/CodTransactionConfirmationRequest'
+            schema: {}
           text/json:
-            schema:
-              $ref: '#/components/schemas/CodTransactionConfirmationRequest'
+            schema: {}
           application/*+json:
-            schema:
-              $ref: '#/components/schemas/CodTransactionConfirmationRequest'
+            schema: {}
       responses:
         "200":
           description: Success
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
+                $ref: '#/components/schemas/WebhookResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
+                $ref: '#/components/schemas/WebhookResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-  /api/Cod/RejectTransaction:
-    post:
-      tags:
-      - Cod
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CodTransactionRejectionRequest'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CodTransactionRejectionRequest'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CodTransactionRejectionRequest'
-      responses:
-        "200":
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CodTransactionDetailResponseBaseResponse'
-  /api/Cod/GetAllValidatorSchemes:
-    get:
-      tags:
-      - Cod
-       summary: Updates a pet in the store with form data
-      parameters:
-      - name: EffectiveFrom
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+                $ref: '#/components/schemas/WebhookResponse'
+components:
+  schemas:
+    EmployeeAuditResponse:
+      type: object
+      properties:
+        code:
           type: string
-      - name: Keyword
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+          nullable: true
+        fullName:
           type: string
-      - name: CreatedAt
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+          nullable: true
+        mobilePhone:
           type: string
-      - name: Status
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+          nullable: true
+        email:
           type: string
-      - name: SortBy
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+          nullable: true
+        plateNumber:
           type: string
-      - name: PageSize
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+          nullable: true
+      additionalProperties: false
+    ObjectBaseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        errorCode:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        data:
+          nullable: true
+      additionalProperties: false
+    VehicleBaseResponse:
+      type: object
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          nullable: true
+        updatedAt:
+          type: integer
+          format: int64
+          nullable: true
+        createdBy:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        numberPlate:
+          type: string
+          nullable: true
+        vehicleTypeName:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        vehicleTypeId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    VehicleCreationRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        numberPlate:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        vehicleTypeId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    VehicleResponse:
+      type: object
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          nullable: true
+        updatedAt:
+          type: integer
+          format: int64
+          nullable: true
+        createdBy:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        numberPlate:
+          type: string
+          nullable: true
+        vehicleTypeName:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        vehicleTypeId:
+          type: string
+          format: uuid
+        createdByEmployee:
+          $ref: '#/components/schemas/EmployeeAuditResponse'
+        updatedByEmployee:
+          $ref: '#/components/schemas/EmployeeAuditResponse'
+        vehicleType:
+          $ref: '#/components/schemas/VehicleTypeBaseResponse'
+      additionalProperties: false
+    VehicleResponseBaseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        errorCode:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        data:
+          $ref: '#/components/schemas/VehicleResponse'
+      additionalProperties: false
+    VehicleResponsePaginatedResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/VehicleResponse'
+        countPerPage:
           type: integer
           format: int32
-      - name: Page
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
+        totalPage:
           type: integer
           format: int32
-      responses:
-        "200":
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CodValidatorSchemeDetailResponsePaginatedResultResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CodValidatorSchemeDetailResponsePaginatedResultResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CodValidatorSchemeDetailResponsePaginatedResultResponse'
+        totalCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    VehicleResponsePaginatedResultResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        errorCode:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        data:
+          $ref: '#/components/schemas/VehicleResponsePaginatedResponse'
+      additionalProperties: false
+    VehicleTypeBaseResponse:
+      type: object
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          nullable: true
+        updatedAt:
+          type: integer
+          format: int64
+          nullable: true
+        createdBy:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        length:
+          type: number
+          format: float
+          nullable: true
+        height:
+          type: number
+          format: float
+          nullable: true
+        width:
+          type: number
+          format: float
+          nullable: true
+        maximumPayload:
+          type: number
+          format: float
+          nullable: true
+        maximumCapacity:
+          type: number
+          format: float
+          nullable: true
+        status:
+          type: string
+          nullable: true
+      additionalProperties: false
+    VehicleTypeCreationRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        length:
+          type: number
+          format: float
+          nullable: true
+        height:
+          type: number
+          format: float
+          nullable: true
+        width:
+          type: number
+          format: float
+          nullable: true
+        maximumPayload:
+          type: number
+          format: float
+          nullable: true
+        maximumCapacity:
+          type: number
+          format: float
+          nullable: true
+        status:
+          type: string
+          nullable: true
+      additionalProperties: false
+    VehicleTypeDetailResponse:
+      type: object
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          nullable: true
+        updatedAt:
+          type: integer
+          format: int64
+          nullable: true
+        createdBy:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        length:
+          type: number
+          format: float
+          nullable: true
+        height:
+          type: number
+          format: float
+          nullable: true
+        width:
+          type: number
+          format: float
+          nullable: true
+        maximumPayload:
+          type: number
+          format: float
+          nullable: true
+        maximumCapacity:
+          type: number
+          format: float
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        createdByEmployee:
+          $ref: '#/components/schemas/EmployeeAuditResponse'
+        updatedByEmployee:
+          $ref: '#/components/schemas/EmployeeAuditResponse'
+      additionalProperties: false
+    VehicleTypeDetailResponseBaseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        errorCode:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        data:
+          $ref: '#/components/schemas/VehicleTypeDetailResponse'
+      additionalProperties: false
+    VehicleTypeResponse:
+      type: object
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          nullable: true
+        updatedAt:
+          type: integer
+          format: int64
+          nullable: true
+        createdBy:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        length:
+          type: number
+          format: float
+          nullable: true
+        height:
+          type: number
+          format: float
+          nullable: true
+        width:
+          type: number
+          format: float
+          nullable: true
+        maximumPayload:
+          type: number
+          format: float
+          nullable: true
+        maximumCapacity:
+          type: number
+          format: float
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        createdByEmployee:
+          $ref: '#/components/schemas/EmployeeAuditResponse'
+        updatedByEmployee:
+          $ref: '#/components/schemas/EmployeeAuditResponse'
+        vehicles:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/VehicleBaseResponse'
+      additionalProperties: false
+    VehicleTypeResponseBaseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        errorCode:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        data:
+          $ref: '#/components/schemas/VehicleTypeResponse'
+      additionalProperties: false
+    VehicleTypeResponsePaginatedResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/VehicleTypeResponse'
+        countPerPage:
+          type: integer
+          format: int32
+        totalPage:
+          type: integer
+          format: int32
+        totalCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    VehicleTypeResponsePaginatedResultResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        errorCode:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        data:
+          $ref: '#/components/schemas/VehicleTypeResponsePaginatedResponse'
+      additionalProperties: false
+    VehicleTypeUpdatingRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        length:
+          type: number
+          format: float
+          nullable: true
+        height:
+          type: number
+          format: float
+          nullable: true
+        width:
+          type: number
+          format: float
+          nullable: true
+        maximumPayload:
+          type: number
+          format: float
+          nullable: true
+        maximumCapacity:
+          type: number
+          format: float
+          nullable: true
+        status:
+          type: string
+          nullable: true
+      additionalProperties: false
+    VehicleUpdatingRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        numberPlate:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        vehicleTypeId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    WebhookResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
