@@ -4,6 +4,8 @@ info:
   version: "1.0"
 servers:
 - url: /
+security:
+- {}
 paths:
   /api/Vehicle/GetAll:
     get:
@@ -387,6 +389,7 @@ paths:
     post:
       tags:
       - Webhook
+      summary: Updates a pet in the store with form data
       requestBody:
         content:
           application/json:
@@ -441,6 +444,7 @@ components:
           type: string
           nullable: true
         data:
+          type: object
           nullable: true
       additionalProperties: false
     VehicleBaseResponse:
